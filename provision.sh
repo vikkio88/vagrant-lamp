@@ -17,6 +17,7 @@ main() {
 	apache_go
 	mysql_go
 	php_go
+	node_go
 	autoremove_go
 }
 
@@ -56,13 +57,13 @@ apache_go() {
 		cat << EOF > ${apache_vhost_file}
 <VirtualHost *:80>
     ServerAdmin webmaster@localhost
-    DocumentRoot /vagrant/${project_web_root}
+    DocumentRoot /var/www
     LogLevel debug
 
     ErrorLog /var/log/apache2/error.log
     CustomLog /var/log/apache2/access.log combined
 
-    <Directory /vagrant/${project_web_root}>
+    <Directory /var/www>
         AllowOverride All
         Require all granted
     </Directory>
@@ -108,6 +109,16 @@ EOF
 		chmod +x phpunit-old.phar
 		mv phpunit-old.phar /usr/local/bin/phpunit
 	fi
+}
+
+node_go() {
+	echo "adding node stable source to sources.list"
+	curl -sL https://deb.nodesource.com/setup_6.x | sudo -E bash -
+	echo "installing node"
+	sudo apt-get install -y nodejs
+	echo "installing some node packages"
+	sudo npm install -g yarn
+	sudo npm install -g bower
 }
 
 mysql_go() {
