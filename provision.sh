@@ -22,7 +22,10 @@ main() {
 }
 
 repositories_go() {
-	echo "NOOP"
+	apt-get update
+	apt-get install -y python-software-properties
+	add-apt-repository -y ppa:ondrej/php5-5.6
+
 }
 
 update_go() {
