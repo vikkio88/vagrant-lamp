@@ -19,6 +19,7 @@ main() {
 	php_go
 	node_go
 	autoremove_go
+	utils_go
 }
 
 repositories_go() {
@@ -26,6 +27,10 @@ repositories_go() {
 	apt-get install -y python-software-properties
 	add-apt-repository -y ppa:ondrej/php
 
+}
+
+utils_go() {
+	cd ~ && mkdir /var/www/ www
 }
 
 update_go() {
@@ -84,7 +89,7 @@ EOF
 }
 
 php_go() {
-	apt-get -y install php7.0-cli php7.0-common libapache2-mod-php7.0 php7.0 php7.0-mysql php7.0-fpm php7.0-curl php7.0-gd php7.0-bz2
+	apt-get -y install php7.0-cli php7.0-common libapache2-mod-php7.0 php7.0 php7.0-mysql php7.0-fpm php7.0-curl php7.0-gd php7.0-bz2 php7.0-xml php7.0-zip php7.0-mbstring
 
 	sed -i "s/display_startup_errors = Off/display_startup_errors = On/g" ${php_config_file}
 	sed -i "s/display_errors = Off/display_errors = On/g" ${php_config_file}
@@ -121,7 +126,6 @@ node_go() {
 	sudo apt-get install -y nodejs
 	echo "installing some node packages"
 	sudo npm install -g yarn
-	sudo npm install -g bower
 }
 
 mysql_go() {
